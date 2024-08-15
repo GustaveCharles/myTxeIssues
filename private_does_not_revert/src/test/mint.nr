@@ -4,7 +4,7 @@ use dep::authwit::cheatcodes as authwit_cheatcodes;
 use crate::Token;
 
 
-#[test]
+#[test(should_fail_with="caller is not minter")]
 unconstrained fn mint_t() {
     let (env, token_contract_address, owner, user, mint_amount) = utils::setup(/* with_account_contracts */ false);
 
@@ -19,6 +19,6 @@ unconstrained fn mint_t() {
     let total_supply = env.call_public(total_supply_call_interface);
 
     assert(total_supply == 0);
-
+    //the total supply is 0 but the user has been able to mint tokens
     utils::check_private_balance(token_contract_address, user, mint_amount);
 }
